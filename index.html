@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Game - by djo</title>
+    <link rel="stylesheet" href="./style.css">
+<body>
+    <div class="container">
+        <!-- Start Screen -->
+        <div class="start-screen" id="startScreen">
+            <div class="icon">🧠</div>
+            <h1>Memory Game</h1>
+            <p>Match all the pairs to win!</p>
+            
+            <div class="difficulty-selector">
+                <button class="difficulty-btn" onclick="setDifficulty('easy')">Easy (8)</button>
+                <button class="difficulty-btn active" onclick="setDifficulty('medium')">Medium (12)</button>
+                <button class="difficulty-btn" onclick="setDifficulty('hard')">Hard (16)</button>
+            </div>
+            
+            <p class="developer">Developed by <span>djo</span></p>
+            <button class="btn" onclick="startGame()">
+                <span>▶</span> Play Game
+            </button>
+        </div>
+
+        <!-- Game Screen -->
+        <div class="game-screen" id="gameScreen">
+            <div class="game-header">
+                <div class="stats">
+                    <div class="stat">
+                        <div class="stat-label">Time</div>
+                        <div class="stat-value" id="timer">0:00</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-label">Moves</div>
+                        <div class="stat-value" id="moves">0</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-label">Combo</div>
+                        <div class="stat-value" id="combo">0</div>
+                    </div>
+                </div>
+                <button class="restart-btn" onclick="restartGame()">
+                    <span>↻</span> Restart
+                </button>
+            </div>
+
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar"></div>
+            </div>
+
+            <div class="game-grid medium" id="gameGrid"></div>
+
+            <div class="footer">
+                Developed by <span>djo</span> ✨
+            </div>
+        </div>
+
+        <!-- Win Screen -->
+        <div class="win-screen" id="winScreen">
+            <div class="trophy">🏆</div>
+            <h2>You Won! 🎉</h2>
+            <div class="rating" id="rating"></div>
+            <div class="win-stats">
+                <p class="win-stat">Time: <span id="finalTime">0:00</span></p>
+                <p class="win-stat">Moves: <span id="finalMoves">0</span></p>
+                <p class="win-stat">Max Combo: <span id="finalCombo">0</span></p>
+            </div>
+            
+            <div class="game-rating">
+                <p class="rating-title">Game Rating out of 10</p>
+                <div class="rating-score" id="gameRating">0/10</div>
+                <div class="rating-message" id="ratingMessage"></div>
+            </div>
+            
+            <p class="developer">Developed by <span>djo</span></p>
+            <button class="btn" onclick="restartGame()">
+                <span>↻</span> Play Again
+            </button>
+        </div>
+    </div>
+
+    <script src="./main.js">
+    </script>
+</body>
+</html>
