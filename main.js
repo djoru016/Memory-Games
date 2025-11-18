@@ -192,8 +192,8 @@ function calculateRating() {
     else score += 10;
     
     // تحديد عدد النجوم بناءً على النقاط الكلية
-    if (score >= 75) return 3; // 3 نجوم
-    if (score >= 50) return 2; // نجمتان
+    if (score >= 10) return 3; // 3 نجوم
+    if (score >= 10) return 2; // نجمتان
     return 1; // نجمة واحدة
 }
 
@@ -312,3 +312,4 @@ function playSound(type) {
         console.log('Audio not supported');
     }
 }
+
