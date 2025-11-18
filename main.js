@@ -172,19 +172,29 @@ function winGame() {
 function calculateRating() {
     // حساب أفضل عدد حركات ممكن (عدد الأزواج)
     const perfectMoves = totalPairs;
+    const perfectTime = totalPairs * 3;
     
-    // تقييم بناءً على عدد الحركات والوقت
-    const moveEfficiency = moves / perfectMoves;
-    const timeEfficiency = time / (totalPairs * 3);
+    // حساب النقاط بناءً على الأداء
+    let score = 0;
     
-    // 3 نجوم: أداء جيد جداً
-    if (moveEfficiency <= 1.25 && timeEfficiency <= 1.5) return 3;
+    // نقاط الحركات (من 50)
+    if (moves <= perfectMoves * 1.2) score += 50;
+    else if (moves <= perfectMoves * 1.4) score += 40;
+    else if (moves <= perfectMoves * 1.7) score += 30;
+    else if (moves <= perfectMoves * 2) score += 20;
+    else score += 10;
     
-    // نجمتان: أداء متوسط إلى جيد
-    if (moveEfficiency <= 1.7 && timeEfficiency <= 2.2) return 2;
+    // نقاط الوقت (من 50)
+    if (time <= perfectTime * 1.3) score += 50;
+    else if (time <= perfectTime * 1.7) score += 40;
+    else if (time <= perfectTime * 2.2) score += 30;
+    else if (time <= perfectTime * 3) score += 20;
+    else score += 10;
     
-    // نجمة واحدة: أداء مقبول
-    return 1;
+    // تحديد عدد النجوم بناءً على النقاط الكلية
+    if (score >= 75) return 3; // 3 نجوم
+    if (score >= 50) return 2; // نجمتان
+    return 1; // نجمة واحدة
 }
 
 function displayRating(stars) {
