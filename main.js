@@ -173,10 +173,18 @@ function calculateRating() {
     // حساب أفضل عدد حركات ممكن (عدد الأزواج)
     const perfectMoves = totalPairs;
     
-    // تقييم بناءً على عدد الحركات
-    if (moves <= perfectMoves) return 3; // أداء مثالي - 3 نجوم
-    if (moves <= perfectMoves * 1.5) return 2; // أداء جيد - نجمتان
-    return 1; // أداء مقبول - نجمة واحدة
+    // تقييم بناءً على عدد الحركات والوقت
+    const moveEfficiency = moves / perfectMoves;
+    const timeEfficiency = time / (totalPairs * 3);
+    
+    // 3 نجوم: أداء جيد جداً
+    if (moveEfficiency <= 1.25 && timeEfficiency <= 1.5) return 3;
+    
+    // نجمتان: أداء متوسط إلى جيد
+    if (moveEfficiency <= 1.7 && timeEfficiency <= 2.2) return 2;
+    
+    // نجمة واحدة: أداء مقبول
+    return 1;
 }
 
 function displayRating(stars) {
@@ -197,22 +205,28 @@ function calculateGameScore() {
     
     // تقييم الحركات (من 5)
     let moveScore = 5;
-    if (moves > perfectMoves) moveScore = 4;
-    if (moves > perfectMoves * 1.3) moveScore = 3;
-    if (moves > perfectMoves * 1.7) moveScore = 2;
+    if (moves > perfectMoves * 1.1) moveScore = 4.5;
+    if (moves > perfectMoves * 1.25) moveScore = 4;
+    if (moves > perfectMoves * 1.5) moveScore = 3;
+    if (moves > perfectMoves * 1.8) moveScore = 2;
     if (moves > perfectMoves * 2.5) moveScore = 1;
     
     // تقييم الوقت (من 3)
     let timeScore = 3;
-    if (time > perfectTime) timeScore = 2;
-    if (time > perfectTime * 1.5) timeScore = 1;
-    if (time > perfectTime * 2.5) timeScore = 0;
+    if (time > perfectTime * 1.3) timeScore = 2.5;
+    if (time > perfectTime * 1.7) timeScore = 2;
+    if (time > perfectTime * 2.3) timeScore = 1;
+    if (time > perfectTime * 3.5) timeScore = 0;
     
     // تقييم الكومبو (من 2)
-    let comboScore = Math.min((maxCombo / totalPairs) * 2, 2);
+    let comboScore = 0;
+    if (maxCombo >= totalPairs * 0.7) comboScore = 2; // كومبو ممتاز
+    else if (maxCombo >= totalPairs * 0.4) comboScore = 1.5;
+    else if (maxCombo >= totalPairs * 0.25) comboScore = 1;
+    else comboScore = 0.5;
     
-    const finalScore = Math.round(moveScore + timeScore + comboScore);
-    return Math.min(Math.max(finalScore, 1), 10); // بين 1 و 10
+    const finalScore = moveScore + timeScore + comboScore;
+    return Math.min(Math.max(Math.round(finalScore), 1), 10); // بين 1 و 10
 }
 
 function displayGameRating(score) {
